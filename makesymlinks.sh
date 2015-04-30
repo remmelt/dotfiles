@@ -3,7 +3,5 @@
 files="zshrc"
 
 for file in $files; do
-  ln -s $file ~/.$file
+  ln -s "$PWD"/$file ~/.$file
 done
-
-source ~/.zshrc
