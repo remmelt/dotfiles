@@ -15,6 +15,7 @@ setopt hist_ignore_all_dups
 setopt hist_ignore_space
 setopt autocd
 setopt extendedglob
+export SAVEHIST=1000
 export HISTSIZE=2000
 export HISTFILE="$HOME/.history"
 
