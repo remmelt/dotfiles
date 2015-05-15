@@ -7,7 +7,7 @@ prompt adam1
 
 export LC_CTYPE="en_US.utf-8"
 
-alias ls='ls -lAsGhF'
+alias ls='ls -lAshF'
 alias grep='grep --color'
 alias history='history -150'
 
