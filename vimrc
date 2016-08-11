@@ -14,6 +14,7 @@ Plugin 'godlygeek/tabular'
 Plugin 'vim-scripts/snipMate'
 Plugin 'slim-template/vim-slim.git'
 Plugin 'mileszs/ack.vim'
+Plugin 'scrooloose/nerdtree'
 
 call vundle#end()
 

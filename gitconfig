@@ -1,9 +1,9 @@
 [user]
 	name = Remmelt Pit
-	email = remmelt@info.nl
+	email = rpit@ebay.com
 [core]
-	excludesfile = ~/.gitignore_global
-	editor = vi
+	excludesfile = /Users/rpit/.gitignore_global
+	editor = /usr/local/bin/vim
 	autocrlf = input
 	ignorecase = false
 [alias]
@@ -14,9 +14,20 @@
 	vlog = log --graph --date-order --date=relative --pretty=format:\"%C(cyan)%h: %Cblue - %an - %Cgreen %C(cyan)%ar:%Creset%n%s%n\" --color
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	amend = commit --amend -C HEAD
+	up = !git fetch && git rebase --autostash FETCH_HEAD
 [color]
 	ui = true
 	diff = auto
 	status = auto
 	branch = auto
 
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/rpit/.stCommitMsg
+[credential]
+	helper = osxkeychain
