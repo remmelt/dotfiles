@@ -9,16 +9,38 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
 Plugin 'godlygeek/tabular'
-Plugin 'vim-scripts/snipMate'
 Plugin 'slim-template/vim-slim.git'
-Plugin 'mileszs/ack.vim'
-Plugin 'scrooloose/nerdtree'
+Plugin 'itchyny/lightline.vim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'tpope/vim-fugitive' 
 
 call vundle#end()
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
+
+" Set lightline theme
+let g:lightline = {
+      \ 'colorscheme': 'solarized',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component': {
+      \   'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
+      \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+      \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
+      \ },
+      \ 'component_visible_condition': {
+      \   'readonly': '(&filetype!="help"&& &readonly)',
+      \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+      \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+      \ },
+      \ 'separator': { 'left': '⮀', 'right': '⮂' },
+      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+      \ }
 
 " Show line numbers
 set number
@@ -28,6 +50,12 @@ set expandtab
 set shiftwidth=2
 set softtabstop=2
 set tabstop=2
+
+" Use ag instead of grep, also for ctrlP
+if executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
 
 " Indentation
 filetype plugin indent on
@@ -39,14 +67,8 @@ set copyindent
 " Full support for Backspace in Insert mode
 set backspace=2
 
-" No line wrapping
-"""set nowrap
-
 " Syntax highlighting ftw!
 syntax on
-
-" Use new regexp engine for ruby in ViM 7.4
-"set re=1
 
 " Status bar
 set ls=2
@@ -76,8 +98,8 @@ set nowritebackup
 set noswapfile
 
 " Colorscheme
-"colo molokai
-colo default
+set background=dark
+colorscheme solarized
 
 " Trigger CommandP
 map <C-p> :CtrlP<CR>
@@ -105,3 +127,4 @@ endif
 
 " Automatically reload on file change
 set autoread
+
