@@ -15,7 +15,7 @@ Plugin 'godlygeek/tabular'
 Plugin 'slim-template/vim-slim.git'
 Plugin 'itchyny/lightline.vim'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'tpope/vim-fugitive' 
+Plugin 'tpope/vim-fugitive'
 
 call vundle#end()
 
@@ -29,7 +29,7 @@ let g:lightline = {
       \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component': {
-      \   'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
+      \   'readonly': '%{&filetype=="help"?"":&readonly?"\ue0a2":""}',
       \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
       \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
       \ },
@@ -38,15 +38,25 @@ let g:lightline = {
       \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
       \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
       \ },
-      \ 'separator': { 'left': '⮀', 'right': '⮂' },
-      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+      \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+      \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
       \ }
+
+" Colorscheme
+set background=dark
+colorscheme solarized
+
+" NerdTree
+map <silent> <C-n> :NERDTreeToggle<CR>
 
 " Show line numbers
 set number
 
+" Lightline already shows mode
+set noshowmode
+
 " Tabs
-set expandtab
+"set expandtab
 set shiftwidth=2
 set softtabstop=2
 set tabstop=2
@@ -89,6 +99,11 @@ set incsearch
 " Press Spacebar for cleaning highlighted search matches.
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
+" Set the map leader to ' ' (space)
+" Note that space is also set to remove highlighted searches, so that will
+" happen only after a timeout (defaults to 1s)
+let mapleader = "\<Space>"
+
 " Press ENTER in navigation mode to save the current file.
 nnoremap <Enter> :w<CR>
 
@@ -96,10 +111,6 @@ nnoremap <Enter> :w<CR>
 set nobackup
 set nowritebackup
 set noswapfile
-
-" Colorscheme
-set background=dark
-colorscheme solarized
 
 " Trigger CommandP
 map <C-p> :CtrlP<CR>
@@ -127,4 +138,18 @@ endif
 
 " Automatically reload on file change
 set autoread
+
+" This allows you to visually select a section and then hit @ to run a macro
+" on all lines. Only lines which match will change. Without this script the
+" macro would stop at lines which don’t match the macro.
+" https://github.com/stoeffel/.dotfiles/blob/master/vim/visual-at.vim
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+function! ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction
+
+" Some custom file extensions
+" Salt State files:
+au BufReadPost *.sls set syntax=yaml
 
