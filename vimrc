@@ -16,6 +16,7 @@ Plugin 'slim-template/vim-slim.git'
 Plugin 'itchyny/lightline.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tpope/vim-fugitive'
+Plugin 'fatih/vim-go'
 
 call vundle#end()
 
@@ -56,7 +57,7 @@ set number
 set noshowmode
 
 " Tabs
-"set expandtab
+set expandtab
 set shiftwidth=2
 set softtabstop=2
 set tabstop=2
@@ -152,4 +153,21 @@ endfunction
 " Some custom file extensions
 " Salt State files:
 au BufReadPost *.sls set syntax=yaml
+
+" https://github.com/fatih/vim-go
+" :GoInstallBinaries
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_command = "goimports"
+au FileType go nmap <Leader>i <Plug>(go-info)
+au FileType go nmap <Leader>e <Plug>(go-rename)
+au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage)
 
