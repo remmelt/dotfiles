@@ -10,6 +10,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'kien/ctrlp.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'slim-template/vim-slim.git'
@@ -17,10 +18,20 @@ Plugin 'itchyny/lightline.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tpope/vim-fugitive'
 Plugin 'fatih/vim-go'
+Plugin 'elzr/vim-json'
+Plugin 'Shougo/deoplete.nvim'
+Plugin 'ntpeters/vim-better-whitespace'
 
 call vundle#end()
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
+
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
+" deoplete tab-complete
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+" Use smartcase.
+let g:deoplete#enable_smart_case = 1
 
 " Set lightline theme
 let g:lightline = {
@@ -47,14 +58,24 @@ let g:lightline = {
 set background=dark
 colorscheme solarized
 
+" turn off automatic mouse support in visual mode
+set mouse-=a
+
 " NerdTree
-map <silent> <C-n> :NERDTreeToggle<CR>
+map <silent> <C-n> :NERDTreeTabsToggle<CR>
+:let NERDTreeQuitOnOpen = 0
+
+" Automatically write file to disk when calling :make
+set autowrite
 
 " Show line numbers
 set number
 
 " Lightline already shows mode
 set noshowmode
+
+" https://github.com/ntpeters/vim-better-whitespace
+autocmd BufWritePre * StripWhitespace
 
 " Tabs
 set expandtab
@@ -105,7 +126,7 @@ nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 " happen only after a timeout (defaults to 1s)
 let mapleader = "\<Space>"
 
-" Press ENTER in navigation mode to save the current file.
+" Press ENTER in normal mode to save the current file.
 nnoremap <Enter> :w<CR>
 
 " No backups
@@ -115,22 +136,24 @@ set noswapfile
 
 " Trigger CommandP
 map <C-p> :CtrlP<CR>
+" Open files in tab by default https://github.com/kien/ctrlp.vim/issues/160
+let g:ctrlp_prompt_mappings = {
+\ 'AcceptSelection("e")': ['<c-t>'],
+\ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+\ }
 
-" Highlight whitespaces at the end of the lines
-set listchars=tab:\|⋅,trail:⋅,nbsp:⋅
-set list
+" Remap ESC for both visual and insert mode
+vnoremap jk <Esc>
+vnoremap kj <Esc>
+inoremap jk <Esc>
+inoremap kj <Esc>
 
-" Remove trailing whitespaces
-map S :%s/\s\+$//g<CR>:w<CR>
-
-" Replace tabs with spaces
-map tt :%s/\t/\ \ /g<CR>:w<CR>
-
-" Remap ESC
-inoremap jj <Esc>
+" Toggle paste mode with F2
+nnoremap <F2> :set invpaste paste?<CR>
+set pastetoggle=<F2>
 
 " Tabs instead of spaces for Go.
-au FileType go setl tabstop=2 noexpandtab shiftwidth=2 softtabstop=2
+au FileType go setlocal tabstop=4 noexpandtab shiftwidth=4 softtabstop=4
 
 " Hide scrollbars
 if has("gui_running")
@@ -170,4 +193,28 @@ au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <leader>t <Plug>(go-test)
 au FileType go nmap <leader>c <Plug>(go-coverage)
+
+" https://github.com/elzr/vim-json
+let g:vim_json_syntax_conceal = 0
+
+" Highlight current line
+:set cursorline
+
+" http://superuser.com/questions/410982/in-vim-how-can-i-quickly-switch-between-tabs
+" Go to tab by number
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 :tablast<cr>
+
+" Go to last active tab
+au TabLeave * let g:lasttab = tabpagenr()
+nnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
+vnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
 

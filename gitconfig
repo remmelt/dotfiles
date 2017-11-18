@@ -3,9 +3,10 @@
 	email = rpit@ebay.com
 [core]
 	excludesfile = /Users/rpit/.gitignore_global
-	editor = /usr/local/bin/vim
+	editor = /usr/local/bin/nvim -c 'startinsert'
 	autocrlf = input
 	ignorecase = false
+	pager = diff-so-fancy | less --tabs=4 -RFX
 [alias]
 	st = status -sb
 	br = branch
@@ -14,8 +15,9 @@
 	vlog = log --graph --date-order --date=relative --pretty=format:\"%C(cyan)%h: %Cblue - %an - %Cgreen %C(cyan)%ar:%Creset%n%s%n\" --color
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	amend = commit --amend -C HEAD
-	up = !git fetch && git rebase --autostash FETCH_HEAD
+	up = pull --rebase --autostash
 	rev = "!if [ -s '.gitreviewers' ]; then cat .gitreviewers | xargs git review --reviewers; else git review; fi"
+  short-head = rev-parse --short=7 HEAD
 [color]
 	ui = true
 	diff = auto
@@ -24,7 +26,7 @@
 
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path =
+	path = 
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
