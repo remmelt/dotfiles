@@ -142,12 +142,6 @@ let g:ctrlp_prompt_mappings = {
 \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
 \ }
 
-" Remap ESC for both visual and insert mode
-vnoremap jk <Esc>
-vnoremap kj <Esc>
-inoremap jk <Esc>
-inoremap kj <Esc>
-
 " Toggle paste mode with F2
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
