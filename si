@@ -1,0 +1,12 @@
+#! /usr/bin/env bash
+
+set -o nounset
+set -o errexit
+
+function get_pw() {
+  security 2>&1 >/dev/null find-generic-password -ga ecg-ldap | sed 's/password: "\(.*\)"/\1/' 2>/dev/null
+}
+
+pw=$(get_pw)
+echo -n "${pw}" | pbcopy
+

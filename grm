@@ -1,0 +1,20 @@
+#! /bin/sh
+
+branch=${1}
+if [ -z ${1} ]; then
+    branch=$(git rev-parse --abbrev-ref HEAD)
+fi
+
+if [ ${branch} == "master" ]; then
+    echo "You want to delete master? No."
+    exit 1
+fi
+
+git checkout -q master
+git up -q
+git checkout -q ${branch}
+git branch -q --set-upstream-to=origin/master
+git up -q
+git checkout -q master
+git branch -q -d ${branch}
+git branch

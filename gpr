@@ -1,0 +1,5 @@
+#! /bin/sh
+
+git push origin $(git rev-parse --abbrev-ref HEAD) --force-with-lease && \
+open http://$(git remote -v | grep origin | grep push | awk -F'[@ ]' '{print $2}' | tr ':' '/' | sed "s/\.git/\/compare\/master...$(git rev-parse --abbrev-ref HEAD)/")
+
