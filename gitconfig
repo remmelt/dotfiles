@@ -35,3 +35,7 @@
 [credential]
 	helper = osxkeychain
 
+[push]
+	default = simple
+[submodule]
+	recurse = true
