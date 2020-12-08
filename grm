@@ -7,14 +7,20 @@ fi
 
 if [ ${branch} == "master" ]; then
     echo "You want to delete master? No."
+    echo "Also, take the time to rename to main, because this script will not work with master anymore."
     exit 1
 fi
 
-git checkout -q master
+if [ ${branch} == "main" ]; then
+    echo "You want to delete main? No."
+    exit 1
+fi
+
+git checkout -q main
 git up -q
 git checkout -q ${branch}
-git branch -q --set-upstream-to=origin/master
+git branch -q --set-upstream-to=origin/main
 git up -q
-git checkout -q master
+git checkout -q main
 git branch -q -d ${branch}
 git branch
