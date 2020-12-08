@@ -1,42 +1,11 @@
-#
-# Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
-
-# Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Use fd (https://github.com/sharkdp/fd) instead of the default find
-# command for listing path candidates.
-# - The first argument to the function ($1) is the base path to start traversal
-# - See the source code (completion.{bash,zsh}) for the details.
-_fzf_compgen_path() {
-  fd --hidden --follow --exclude ".git" . "$1"
-}
-
-# Use fd to generate the list for directory completion
-_fzf_compgen_dir() {
-  fd --type d --hidden --follow --exclude ".git" . "$1"
-}
-
-#export MAVEN_OPTS="-Xms1024m -Xmx2048m"
-#export GOROOT=$HOME/go1.7
-export GOPATH=~/dev/go
-
-export PATH=~/bin:$GOPATH/bin:/opt/apache-maven/bin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:$PATH:/usr/local/sbin:$GOROOT/bin
-export PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/2.7.0/bin:$PATH"
-
-export DEFAULT_USER=remmelt
-
-export LC_CTYPE="en_US.utf-8"
-
-fpath=(/usr/local/share/zsh-completions $fpath)
-
-alias ssh-addall='find ~/.ssh -type f -name "id_*" -not -name "*.pub" -exec ssh-add {} \+'
+source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # Docker
 alias aq='docker rm -fv $(docker ps -aq)'
@@ -73,18 +42,12 @@ alias o='open .'
 
 unsetopt histverify
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
 eval $(thefuck --alias fu)
-
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/local/bin/nomad nomad
 
 eval "$(jenv init -)"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-
-
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
