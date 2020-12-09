@@ -13,7 +13,7 @@ if type brew &>/dev/null; then
   compinit
 fi
 
-export PATH=~/.bin:/opt/local/bin:/opt/local/sbin:$PATH
+export PATH=~/.bin:$HOME/.jenv/bin:/opt/local/bin:/opt/local/sbin:$PATH
 
 # Docker
 alias aq='docker rm -fv $(docker ps -aq)'
