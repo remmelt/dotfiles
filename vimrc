@@ -1,10 +1,6 @@
 set nocompatible
 filetype off
 
-" Colorscheme
-set background=dark
-colorscheme solarized
-
 " turn off automatic mouse support in visual mode
 set mouse-=a
 

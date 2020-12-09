@@ -7,6 +7,14 @@ fi
 
 source ~/powerlevel10k/powerlevel10k.zsh-theme
 
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+  autoload -Uz compinit
+  compinit
+fi
+
+export PATH=~/.bin:/opt/local/bin:/opt/local/sbin:$PATH
+
 # Docker
 alias aq='docker rm -fv $(docker ps -aq)'
 alias dl='docker ps -lq'
@@ -40,14 +48,19 @@ alias hist='history -150'
 
 alias o='open .'
 
-unsetopt histverify
+source ~/.zsh_options
 
 eval $(thefuck --alias fu)
-
+eval "$(fasd --init auto)"
 eval "$(jenv init -)"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+zstyle ':completion:*' list-suffixeszstyle ':completion:*' expand prefix suffix
+zstyle ':completion:*' menu select
+zstyle ':completion:*' completer _complete
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
