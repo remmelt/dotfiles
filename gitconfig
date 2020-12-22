@@ -1,7 +1,7 @@
 [user]
 	name = Remmelt Pit
 	email = remmelt@hipcode.io
-	signingkey = DF4AB090396B8447
+	signingkey = 25A90673F50A46D4
 [core]
 	excludesfile = /Users/remmelt/.gitignore_global
 	editor = /usr/local/bin/vim -c 'startinsert'
@@ -21,8 +21,8 @@
 	diff = auto
 	status = auto
 	branch = auto
-# [commit]
-# 	gpgsign = true
+[commit]
+	gpgsign = true
 [credential]
 	helper = osxkeychain
 [push]
