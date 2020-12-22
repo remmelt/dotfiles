@@ -13,7 +13,12 @@ if type brew &>/dev/null; then
   compinit
 fi
 
-export PATH=~/.bin:$HOME/.jenv/bin:/opt/local/bin:/opt/local/sbin:$PATH
+PATH="~/.composer/vendor/bin:$PATH"
+PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+PATH="/Users/remmelt/.bin:$PATH"
+PATH="/usr/local/opt/mysql-client/bin:$PATH"
+PATH="/opt/homebrew/bin:$PATH"
+export PATH=$PATH
 
 # Docker
 alias aq='docker rm -fv $(docker ps -aq)'
@@ -29,12 +34,12 @@ alias ga='(gr && git add .)'
 alias gca='git commit --amend'
 alias gu='git up'
 alias g-='git checkout -'
-alias gm='git checkout main'
+alias gm='git rev-parse --verify --quiet main > /dev/null && git checkout main || git checkout master'
 alias gco='git checkout'
 alias gc='git commit'
 alias gl='git log -1 --stat'
 alias gb='git branch'
-alias gcb='f() { git checkout -b ${1} origin/main };f'
+alias gcb='ff() { git rev-parse --verify --quiet main > /dev/null && M=main || M=master; git checkout -b ${1} origin/$M };ff'
 alias gwip='ga && git commit -m"autoWIP" -n'
 alias gr='cd $(git rev-parse --show-toplevel)'
 alias gsu='git submodule update --init --recursive'
@@ -56,7 +61,12 @@ eval "$(jenv init -)"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# fxf & fd options
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND="fd --type file --color=always"
+export FZF_DEFAULT_OPTS="--ansi"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
