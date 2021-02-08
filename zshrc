@@ -14,11 +14,24 @@ if type brew &>/dev/null; then
 fi
 
 PATH="~/.composer/vendor/bin:$PATH"
-PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+
+# Homebrew:
+if [ 'arm64' = "$(uname -m)" ]; then
+  PATH="/opt/homebrew/bin:$PATH"
+  PATH="/opt/homebrew/opt/curl/bin:$PATH"
+  PATH="/opt/homebrew/opt/sqlite/bin:$PATH"
+else
+  PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+  PATH="/usr/local/opt/mysql-client/bin:$PATH"
+  PATH="/usr/local/opt/curl/bin:$PATH"
+fi
+
+PATH="/Users/remmelt/dev/go/bin:$PATH"
 PATH="/Users/remmelt/.bin:$PATH"
-PATH="/usr/local/opt/mysql-client/bin:$PATH"
-PATH="/opt/homebrew/bin:$PATH"
+
 export PATH=$PATH
+
+export GOPATH="/Users/remmelt/dev/go"
 
 # Docker
 alias aq='docker rm -fv $(docker ps -aq)'
@@ -39,7 +52,7 @@ alias gco='git checkout'
 alias gc='git commit'
 alias gl='git log -1 --stat'
 alias gb='git branch'
-alias gcb='ff() { git rev-parse --verify --quiet main > /dev/null && M=main || M=master; git checkout -b ${1} origin/$M };ff'
+alias gcb='ff() { git rev-parse --verify --quiet main > /dev/null && M=main || M=master; git checkout -b ${1} $M };ff'
 alias gwip='ga && git commit -m"autoWIP" -n'
 alias gr='cd $(git rev-parse --show-toplevel)'
 alias gsu='git submodule update --init --recursive'
