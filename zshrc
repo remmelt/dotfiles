@@ -1,3 +1,9 @@
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+  autoload -Uz compinit
+  compinit
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -7,17 +13,12 @@ fi
 
 source ~/powerlevel10k/powerlevel10k.zsh-theme
 
-if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-  autoload -Uz compinit
-  compinit
-fi
-
 PATH="~/.composer/vendor/bin:$PATH"
 
 # Homebrew:
 if [ 'arm64' = "$(uname -m)" ]; then
   PATH="/opt/homebrew/bin:$PATH"
+  PATH="/opt/homebrew/sbin:$PATH"
   PATH="/opt/homebrew/opt/curl/bin:$PATH"
   PATH="/opt/homebrew/opt/sqlite/bin:$PATH"
 else
@@ -39,6 +40,10 @@ alias dl='docker ps -lq'
 alias prune='docker system prune -f'
 alias dc='docker-compose'
 
+alias g='gcloud'
+alias k='kubectl'
+alias t='terraform'
+
 # Git
 alias gs='git status -sb'
 alias gd='git diff'
@@ -56,6 +61,8 @@ alias gcb='ff() { git rev-parse --verify --quiet main > /dev/null && M=main || M
 alias gwip='ga && git commit -m"autoWIP" -n'
 alias gr='cd $(git rev-parse --show-toplevel)'
 alias gsu='git submodule update --init --recursive'
+
+alias note='note() { d=$(date +"%Y%m%d"); concat=${$(printf '%s-' ${@})%?}; file="/Users/remmelt/dev/fitchannel/notes/${d}-${concat}.md"; touch "$file"; code "$file" }; note'
 
 alias c='code .'
 alias z='fasd_cd'
@@ -81,15 +88,23 @@ export FZF_DEFAULT_COMMAND="fd --type file --color=always"
 export FZF_DEFAULT_OPTS="--ansi"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 zstyle ':completion:*' list-suffixeszstyle ':completion:*' expand prefix suffix
 zstyle ':completion:*' menu select
 zstyle ':completion:*' completer _complete
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
 
+ export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc' ]; then . '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'; fi
+source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc' ]; then . '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'; fi
+source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+eval "$(direnv hook zsh)"
+

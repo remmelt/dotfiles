@@ -4,7 +4,7 @@
 	signingkey = 25A90673F50A46D4
 [core]
 	excludesfile = /Users/remmelt/.gitignore_global
-	editor = /usr/local/bin/vim -c 'startinsert'
+	editor = vim -c 'startinsert'
 	autocrlf = input
 	ignorecase = false
 	pager = diff-so-fancy | less --tabs=4 -RFX
