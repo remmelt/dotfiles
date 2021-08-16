@@ -62,7 +62,7 @@ alias gwip='ga && git commit -m"autoWIP" -n'
 alias gr='cd $(git rev-parse --show-toplevel)'
 alias gsu='git submodule update --init --recursive'
 
-alias note='note() { d=$(date +"%Y%m%d"); concat=${$(printf '%s-' ${@})%?}; file="/Users/remmelt/dev/fitchannel/notes/${d}-${concat}.md"; touch "$file"; code "$file" }; note'
+alias note='note() { d=$(date +"%Y%m%d"); concat=${$(printf '%s-' ${@})%?}; file="/Users/remmelt/dev/shackle/notes/${d}-${concat}.md"; touch "$file"; code "$file" }; note'
 
 alias c='code .'
 alias z='fasd_cd'
