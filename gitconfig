@@ -23,6 +23,7 @@
 	branch = auto
 [commit]
 	gpgsign = true
+	template = /Users/remmelt/.stCommitMsg
 [credential]
 	helper = osxkeychain
 [push]
@@ -35,3 +36,9 @@
 	program = gpg
 [tag]
 	forceSignAnnotated = false
+[difftool "sourcetree"]
+	cmd = /Users/remmelt/.bin/idea diff $LOCAL $PWD/$REMOTE
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Users/remmelt/.bin/idea merge $PWD/$LOCAL $PWD/$REMOTE $PWD/$BASE $PWD/$MERGED
+	trustExitCode = true

@@ -1,0 +1,4 @@
+#! /bin/sh
+
+gh pr create --fill
+

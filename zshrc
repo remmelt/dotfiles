@@ -64,6 +64,7 @@ alias gsu='git submodule update --init --recursive'
 
 alias note='note() { d=$(date +"%Y%m%d"); concat=${$(printf '%s-' ${@})%?}; file="/Users/remmelt/dev/shackle/notes/${d}-${concat}.md"; touch "$file"; code "$file" }; note'
 
+alias i='idea .'
 alias c='code .'
 alias z='fasd_cd'
 alias ls='exa -a -a -l --git'
@@ -108,3 +109,6 @@ source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 eval "$(direnv hook zsh)"
 
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /opt/homebrew/bin/terraform terraform
