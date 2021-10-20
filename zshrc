@@ -1,9 +1,3 @@
-if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-  autoload -Uz compinit
-  compinit
-fi
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -33,6 +27,10 @@ PATH="/Users/remmelt/.bin:$PATH"
 export PATH=$PATH
 
 export GOPATH="/Users/remmelt/dev/go"
+
+export EDITOR=vim
+
+bindkey -v
 
 # Docker
 alias aq='docker rm -fv $(docker ps -aq)'
@@ -112,3 +110,4 @@ eval "$(direnv hook zsh)"
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
+
