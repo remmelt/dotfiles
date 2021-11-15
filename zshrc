@@ -31,6 +31,7 @@ export GOPATH="/Users/remmelt/dev/go"
 export EDITOR=vim
 
 bindkey -v
+bindkey -M viins '\e.' insert-last-word
 
 # Docker
 alias aq='docker rm -fv $(docker ps -aq)'
