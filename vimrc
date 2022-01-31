@@ -8,7 +8,7 @@ set mouse-=a
 set number
 
 " https://github.com/ntpeters/vim-better-whitespace
-autocmd BufWritePre * StripWhitespace
+" autocmd BufWritePre * StripWhitespace
 
 " Tabs
 set expandtab
@@ -16,7 +16,7 @@ set shiftwidth=2
 set softtabstop=2
 set tabstop=2
 
-" Use ag instead of grep, also for ctrlP
+" Use rg instead of grep, also for ctrlP
 if executable('rg')
   set grepprg=rg
 endif
@@ -37,8 +37,8 @@ syntax on
 " Status bar
 set ls=2
 
-" Start scrolling 9 lines before edge of viewport
-set scrolloff=9
+" Start scrolling 12 lines before edge of viewport
+set scrolloff=12
 
 " Search stuff
 " Case insensitive search
@@ -68,7 +68,7 @@ nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
 
 " Tabs instead of spaces for Go.
-au FileType go setlocal tabstop=4 noexpandtab shiftwidth=4 softtabstop=4
+" au FileType go setlocal tabstop=4 noexpandtab shiftwidth=4 softtabstop=4
 
 " Hide scrollbars
 if has("gui_running")
@@ -82,4 +82,5 @@ set autoread
 :set cursorline
 
 " Use system clipboard
-set clipboard=unnamed
+"set clipboard=unnamed
+

@@ -33,12 +33,13 @@
 [init]
 	defaultBranch = main
 [gpg]
-	program = gpg
+ 	program = gpg
 [tag]
 	forceSignAnnotated = false
 [difftool "sourcetree"]
-	cmd = /Users/remmelt/.bin/idea diff $LOCAL $PWD/$REMOTE
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
 [mergetool "sourcetree"]
-	cmd = /Users/remmelt/.bin/idea merge $PWD/$LOCAL $PWD/$REMOTE $PWD/$BASE $PWD/$MERGED
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+

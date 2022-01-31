@@ -7,7 +7,7 @@ fi
 
 if [ ${branch} == "master" ]; then
     echo "You want to delete master? No."
-    echo "Also, take the time to rename to main, because this script will not work with master anymore."
+    echo "Also, take the time to rename to main, because this script does not work with master anymore."
     exit 1
 fi
 

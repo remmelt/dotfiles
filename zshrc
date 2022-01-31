@@ -23,6 +23,7 @@ fi
 
 PATH="/Users/remmelt/dev/go/bin:$PATH"
 PATH="/Users/remmelt/.bin:$PATH"
+PATH="/opt/homebrew/opt/node@16/bin:$PATH"
 
 export PATH=$PATH
 
@@ -44,6 +45,7 @@ alias k='kubectl'
 alias t='terraform'
 
 # Git
+alias gpp='gh pr create --fill'
 alias gs='git status -sb'
 alias gd='git diff'
 alias gdc='git diff --cached'
@@ -93,11 +95,6 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' completer _complete
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
 
- export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-
-
 # The next line updates PATH for the Google Cloud SDK.
 source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
 
@@ -105,9 +102,6 @@ source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh
 source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-eval "$(direnv hook zsh)"
-
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
