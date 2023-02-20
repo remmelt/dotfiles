@@ -16,11 +16,12 @@ if [ ${branch} == "main" ]; then
     exit 1
 fi
 
+git fetch --prune -q
 git checkout -q main
 git up -q
 git checkout -q ${branch}
-git branch -q --set-upstream-to=origin/main
-git up -q
+git rebase -q main
+
 git checkout -q main
 git branch -q -d ${branch}
 git branch

@@ -1,6 +1,7 @@
 #! /bin/sh
 
+DEFAULT_BRANCH=$(gh repo view --json defaultBranchRef | jq -r '.defaultBranchRef.name')
 git push origin "$(git rev-parse --abbrev-ref HEAD)" --force-with-lease && \
-u=http://$(git remote -v | grep origin | grep \(push | awk -F'[@ ]' '{print $2}' | tr ':' '/' | sed "s%\.git%\/compare\/main...$(git rev-parse --abbrev-ref HEAD)%")
+u=http://$(git remote -v | grep origin | grep \(push | awk -F'[@ ]' '{print $2}' | tr ':' '/' | sed "s%\.git%\/compare\/${DEFAULT_BRANCH}...$(git rev-parse --abbrev-ref HEAD)%")
 echo $u
 open $u

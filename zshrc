@@ -10,24 +10,17 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 PATH="~/.composer/vendor/bin:$PATH"
 
 # Homebrew:
-if [ 'arm64' = "$(uname -m)" ]; then
-  PATH="/opt/homebrew/bin:$PATH"
-  PATH="/opt/homebrew/sbin:$PATH"
-  PATH="/opt/homebrew/opt/curl/bin:$PATH"
-  PATH="/opt/homebrew/opt/sqlite/bin:$PATH"
-else
-  PATH="/usr/local/bin:/usr/local/sbin:$PATH"
-  PATH="/usr/local/opt/mysql-client/bin:$PATH"
-  PATH="/usr/local/opt/curl/bin:$PATH"
-fi
-
-PATH="/Users/remmelt/dev/go/bin:$PATH"
 PATH="/Users/remmelt/.bin:$PATH"
+
+PATH="/opt/homebrew/bin:$PATH"
+PATH="/opt/homebrew/sbin:$PATH"
+PATH="/opt/homebrew/opt/curl/bin:$PATH"
+PATH="/opt/homebrew/opt/sqlite/bin:$PATH"
+
+PATH="/Users/remmelt/go/bin:$PATH"
 PATH="/opt/homebrew/opt/node@16/bin:$PATH"
 
 export PATH=$PATH
-
-export GOPATH="/Users/remmelt/dev/go"
 
 export EDITOR=vim
 
@@ -40,13 +33,11 @@ alias dl='docker ps -lq'
 alias prune='docker system prune -f'
 alias dc='docker-compose'
 
-alias g='gcloud'
-alias k='kubectl'
 alias t='terraform'
 
 # Git
 alias gpp='gh pr create --fill'
-alias gs='git status -sb'
+alias gs='git status --short --branch'
 alias gd='git diff'
 alias gdc='git diff --cached'
 alias ga='(gr && git add .)'
@@ -58,14 +49,16 @@ alias gco='git checkout'
 alias gc='git commit'
 alias gl='git log -1 --stat'
 alias gb='git branch'
-alias gcb='ff() { git rev-parse --verify --quiet main > /dev/null && M=main || M=master; git checkout -b ${1} $M };ff'
-alias gwip='ga && git commit -m"autoWIP" -n'
+alias gcb='ff() { git checkout -b ${1} $(gh repo view --json defaultBranchRef | jq -r ".defaultBranchRef.name") };ff'
+alias gwip='ga && git commit -m"autoWIP" -n --no-verify'
 alias gr='cd $(git rev-parse --show-toplevel)'
 alias gsu='git submodule update --init --recursive'
 
-alias note='note() { d=$(date +"%Y%m%d"); concat=${$(printf '%s-' ${@})%?}; file="/Users/remmelt/dev/shackle/notes/${d}-${concat}.md"; touch "$file"; code "$file" }; note'
+alias note='note() { d=$(date +"%Y%m%d"); concat=${$(printf '%s-' ${@})%?}; file="/Users/remmelt/dev/source/notes/${d}-${concat}.md"; touch "$file"; code "$file" }; note'
 
 alias i='idea .'
+alias g='goland .'
+alias p='pycharm .'
 alias c='code .'
 alias z='fasd_cd'
 alias ls='exa -a -a -l --git'
@@ -74,6 +67,8 @@ alias grep='grep --color'
 alias hist='history -150'
 
 alias o='open .'
+
+alias awslocal="aws --endpoint-url=http://localhost:4566 --profile=localstack"
 
 source ~/.zsh_options
 
@@ -106,3 +101,16 @@ source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
+
+# Created by `pipx` on 2022-02-02 12:09:13
+export PATH="$PATH:/Users/remmelt/.local/bin"
+
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+source <(inv --print-completion-script zsh)
+
+# source /Users/remmelt/.config/op/plugins.sh
+
+source /Users/remmelt/.docker/init-zsh.sh || true # Added by Docker Desktop

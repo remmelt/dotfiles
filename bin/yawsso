@@ -1,0 +1,3 @@
+#! /bin/sh
+
+/Users/remmelt/.local/bin/yawsso auto --profile dev
