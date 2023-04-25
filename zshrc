@@ -9,8 +9,7 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 PATH="~/.composer/vendor/bin:$PATH"
 
-# Homebrew:
-PATH="/Users/remmelt/.bin:$PATH"
+PATH="$PATH:/Users/remmelt/.local/bin"
 
 PATH="/opt/homebrew/bin:$PATH"
 PATH="/opt/homebrew/sbin:$PATH"
@@ -19,6 +18,8 @@ PATH="/opt/homebrew/opt/sqlite/bin:$PATH"
 
 PATH="/Users/remmelt/go/bin:$PATH"
 PATH="/opt/homebrew/opt/node@16/bin:$PATH"
+
+PATH="/Users/remmelt/.bin:$PATH"
 
 export PATH=$PATH
 
@@ -35,6 +36,9 @@ alias dc='docker-compose'
 
 alias t='terraform'
 
+# Python
+alias pu='poetry lock --no-update && poetry install --no-root --sync'
+
 # Git
 alias gpp='gh pr create --fill'
 alias gs='git status --short --branch'
@@ -43,6 +47,7 @@ alias gdc='git diff --cached'
 alias ga='(gr && git add .)'
 alias gca='git commit --amend'
 alias gu='git up'
+alias gub='gm && gu && g- && git rebase -i $(git merge-base head main)'
 alias g-='git checkout -'
 alias gm='git rev-parse --verify --quiet main > /dev/null && git checkout main || git checkout master'
 alias gco='git checkout'
@@ -102,9 +107,6 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
 
-# Created by `pipx` on 2022-02-02 12:09:13
-export PATH="$PATH:/Users/remmelt/.local/bin"
-
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
@@ -114,3 +116,5 @@ source <(inv --print-completion-script zsh)
 # source /Users/remmelt/.config/op/plugins.sh
 
 source /Users/remmelt/.docker/init-zsh.sh || true # Added by Docker Desktop
+
+
