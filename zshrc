@@ -73,7 +73,7 @@ alias hist='history -150'
 
 alias o='open .'
 
-alias awslocal="aws --endpoint-url=http://localhost:4566 --profile=localstack"
+#alias awslocal="aws --endpoint-url=http://localhost:4566 --profile=localstack"
 
 source ~/.zsh_options
 
@@ -96,25 +96,25 @@ zstyle ':completion:*' completer _complete
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
 
 # The next line updates PATH for the Google Cloud SDK.
-source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+#source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
 
 # The next line enables shell command completion for gcloud.
-source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+#source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 autoload -U +X bashcompinit && bashcompinit
+autoload -U +X compinit && compinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
 
-eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+#eval "$(pyenv init --path)"
+#eval "$(pyenv init -)"
+#eval "$(pyenv virtualenv-init -)"
 
-source <(inv --print-completion-script zsh)
+#source <(inv --print-completion-script zsh)
 
-# source /Users/remmelt/.config/op/plugins.sh
+source /Users/remmelt/.config/op/plugins.sh
 
-source /Users/remmelt/.docker/init-zsh.sh || true # Added by Docker Desktop
-
+#source /Users/remmelt/.docker/init-zsh.sh || true # Added by Docker Desktop
 
