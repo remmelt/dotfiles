@@ -1,7 +1,17 @@
-#! /bin/sh
+#! /usr/bin/env bash
 
-DEFAULT_BRANCH=$(gh repo view --json defaultBranchRef | jq -r '.defaultBranchRef.name')
-git push origin "$(git rev-parse --abbrev-ref HEAD)" --force-with-lease && \
-u=http://$(git remote -v | grep origin | grep \(push | awk -F'[@ ]' '{print $2}' | tr ':' '/' | sed "s%\.git%\/compare\/${DEFAULT_BRANCH}...$(git rev-parse --abbrev-ref HEAD)%")
-echo $u
-open $u
+set -Eeuo pipefail
+
+gh_url="https://github.com/bitvavo"
+
+my_dir="$(dirname "${BASH_SOURCE[0]}")"
+default_branch="$("$my_dir"/github-default-branch)"
+
+branch_name=$(git rev-parse --abbrev-ref HEAD)
+repo_name=$(basename "$(git rev-parse --show-toplevel)")
+
+git push origin "$branch_name" --force-with-lease
+
+url="$gh_url/$repo_name/compare/$default_branch...$branch_name"
+
+open "$url"

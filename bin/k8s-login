@@ -1,0 +1,43 @@
+#! /usr/bin/env bash
+
+set -Eeuo pipefail
+
+env="dev"
+
+usage() {
+    echo "k8s-login [-e prod/dev]"
+}
+
+while getopts "e:" arg; do
+    case $arg in
+    e)
+        env=${OPTARG}
+        ;;
+    *)
+        usage
+        exit 0
+        ;;
+    esac
+done
+
+if [ "$env" != "dev" ] && [ "$env" != "prod" ]; then
+    echo "env should be in (dev,prod) but was $env" >&2
+    usage
+    exit 1
+fi
+
+RED='\033[0;31m'
+GREEN='\033[1;32m'
+NC='\033[0m' # No Color
+
+color=$GREEN
+[ "$env" == "prod" ] && color=$RED
+
+echo -e "Logging in to k8s on $color$env$NC"
+
+export AWS_PROFILE="$env-applications"
+export CLUSTER="$env"-1-27-a1
+
+aws sso login
+aws eks --region eu-west-1 update-kubeconfig --name "$CLUSTER" --alias "$CLUSTER"
+kubectl config use-context "$AWS_PROFILE"

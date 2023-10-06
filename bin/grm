@@ -1,27 +1,26 @@
-#! /bin/sh
+#! /usr/bin/env bash
 
-branch=${1}
-if [ -z ${1} ]; then
+set -Eeuo pipefail
+
+branch=${1-}
+if [ -z "$branch" ]; then
     branch=$(git rev-parse --abbrev-ref HEAD)
 fi
 
-if [ ${branch} == "master" ]; then
-    echo "You want to delete master? No."
-    echo "Also, take the time to rename to main, because this script does not work with master anymore."
-    exit 1
-fi
+my_dir="$(dirname "${BASH_SOURCE[0]}")"
+default_branch="$("$my_dir"/github-default-branch)"
 
-if [ ${branch} == "main" ]; then
-    echo "You want to delete main? No."
+if [ "${branch}" == "$default_branch" ]; then
+    echo "You want to delete the default branch '$default_branch'? No."
     exit 1
 fi
 
 git fetch --prune -q
-git checkout -q main
+git checkout -q "$default_branch"
 git up -q
-git checkout -q ${branch}
-git rebase -q main
+git checkout -q "${branch}"
+git rebase -q "$default_branch"
 
-git checkout -q main
-git branch -q -d ${branch}
+git checkout -q "$default_branch"
+git branch -q -d "${branch}"
 git branch

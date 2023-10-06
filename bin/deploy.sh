@@ -1,0 +1,1 @@
+/Users/remmeltpit/dev/bitvavo/growth/deploy.sh

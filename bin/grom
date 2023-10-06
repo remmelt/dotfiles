@@ -1,0 +1,25 @@
+#! /usr/bin/env bash
+
+set -Eeuo pipefail
+
+options=""
+# if [ $# -gt 0 ]; then set -x; fi
+if [ $# -gt 0 ]; then options="--interactive"; fi
+
+my_dir="$(dirname "${BASH_SOURCE[0]}")"
+default_branch="$("$my_dir"/github-default-branch)"
+
+git diff-index --quiet HEAD && has_changes=$? || has_changes=$?
+if [ "$has_changes" != 0 ]; then
+    git stash push --message "auto stash from git-update-branch $(date)" --quiet
+fi
+
+git checkout "$default_branch"
+git pull --rebase
+git checkout -
+git rebase $options "$default_branch"
+# git rebase "$(git merge-base head "$default_branch")"
+
+if [ "$has_changes" != 0 ]; then
+    git stash pop --quiet
+fi

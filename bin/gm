@@ -1,0 +1,8 @@
+#! /usr/bin/env bash
+
+set -Eeuo pipefail
+
+my_dir="$(dirname "${BASH_SOURCE[0]}")"
+default_branch="$("$my_dir"/github-default-branch)"
+
+git checkout "$default_branch"

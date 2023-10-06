@@ -1,0 +1,35 @@
+#! /usr/bin/env bash
+
+set -Eueo pipefail
+
+force=1
+verbose=1
+git_opt_name="remmelt.github.default-branch"
+while getopts "fv" opt; do
+  case $opt in
+  f) force=0 ;;
+  v) verbose=0 ;;
+  *) exit 2 ;;
+  esac
+done
+
+is_git=$(git rev-parse --is-inside-work-tree || true)
+if [ "true" != "$is_git" ]; then
+  >&2 echo run this inside a git repository
+  exit 1
+fi
+
+#git config --local "$git_opt_name" yolo
+#git config --local --unset "$git_opt_name"
+
+current=$(git config --local --get "$git_opt_name" || true)
+
+if [ 0 == $force ] || [ "" == "$current" ]; then
+  git config --local "$git_opt_name" "$(op run -- gh repo view --json defaultBranchRef | jq -r '.defaultBranchRef.name')"
+else
+  if [ 0 == $verbose ]; then
+    >&2 echo "(github-default-branch cache hit)"
+  fi
+fi
+
+git config --local --get "$git_opt_name"

@@ -1,0 +1,18 @@
+#! /usr/bin/env bash
+
+set -Eeuo pipefail
+
+GH='op run -- gh'
+
+my_dir="$(dirname "${BASH_SOURCE[0]}")"
+default_branch="$("$my_dir"/github-default-branch)"
+
+branch=$(git rev-parse --abbrev-ref HEAD)
+if [ "${branch}" == "$default_branch" ] ; then
+    echo "You want to push to default branch '$default_branch'? No."
+    exit 1
+fi
+
+git push -u origin HEAD
+$GH pr create --fill "$@"
+open "$($GH pr view --json url | jq -r .url)"

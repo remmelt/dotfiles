@@ -1,0 +1,9 @@
+#! /usr/bin/env bash
+
+set -Eeuo pipefail
+
+if [ -t 1 ]; then
+    git branch --verbose "$@"
+else
+    git branch --verbose --quiet | fzf -1 --query "${1:-}"
+fi
