@@ -1,25 +1,12 @@
-[core]
-	excludesfile = /Users/remmeltpit/.gitignore_global
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
 [user]
-	email = remmelt.pit@bitvavo.com
 	name = Remmelt Pit
-	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICrLa9LmrUwWZ0s9u1rGzXoV+jQ7zXMpR9mSxUKTaf55
-[gpg]
-	format = ssh
-[gpg "ssh"]
-	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
-	allowedSignersFile = /Users/remmeltpit/.config/git/allowed_signers
-[tag]
-	gpgsign = true
-[commit]
-	gpgsign = true
-	template = /Users/remmeltpit/.stCommitMsg
+	email = remmelt@hipcode.io
+	signingkey = 25A90673F50A46D4
+[core]
+	editor = vim -c 'startinsert'
+	autocrlf = input
+	ignorecase = false
+	pager = diff-so-fancy | less --tabs=4 -RFX
 [alias]
 	st = status -sb
 	br = branch
@@ -27,21 +14,47 @@
 	last = log -1 HEAD
 	amend = commit --amend -C HEAD
 	up = pull --rebase --autostash
-	short-head = rev-parse --short=7 HEAD
-	stash = stash --all
+    short-head = rev-parse --short=7 HEAD
 [color]
 	ui = true
 	diff = auto
 	status = auto
 	branch = auto
-
-[diff]
-	mnemonicprefix = true
+[commit]
+	gpgsign = true
+	template = /Users/remmelt/.stCommitMsg
+[credential]
+	helper = osxkeychain
+[push]
+	default = simple
+[submodule]
+	recurse = true
 [init]
 	defaultBranch = main
+[gpg]
+ 	program = gpg
+[tag]
+	forceSignAnnotated = false
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
+[url "ssh://git@gitlab.com/"]
+	insteadOf = https://gitlab.com/
+[url "ssh://git@bitbucket.org/"]
+	insteadOf = https://bitbucket.org/
+
+[includeIf "gitdir:~/dev/source/"]
+  path = .gitconfig-source
 [advice]
 	skippedCherryPicks = false
+[pull]
+	rebase = true
 [rerere]
 	enabled = true
-[maintenance]
-	repo = /Users/remmeltpit/dev/bitvavo/growth/growth-backend
+

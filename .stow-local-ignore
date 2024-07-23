@@ -4,4 +4,6 @@ Brewfile
 Brewfile.lock.json
 README.md
 Makefile
+dot-config/gh/hosts.yml
+dot-config/op/config
 

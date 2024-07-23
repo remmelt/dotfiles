@@ -2,7 +2,7 @@
 
 set -Eeuo pipefail
 
-gh_url="https://github.com/bitvavo"
+gh_url="https://github.com/remmelt"
 
 my_dir="$(dirname "${BASH_SOURCE[0]}")"
 default_branch="$("$my_dir"/github-default-branch)"

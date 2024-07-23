@@ -2,4 +2,6 @@
 *.swp
 Brewfile.lock.json
 .config/karabiner/automatic_backups/
+dot-config/gh/hosts.yml
+dot-config/op/config
 

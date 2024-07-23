@@ -25,7 +25,7 @@ fi
 current=$(git config --local --get "$git_opt_name" || true)
 
 if [ 0 == $force ] || [ "" == "$current" ]; then
-  git config --local "$git_opt_name" "$(op run -- gh repo view --json defaultBranchRef | jq -r '.defaultBranchRef.name')"
+  git config --local "$git_opt_name" "$(gh repo view --json defaultBranchRef | jq -r '.defaultBranchRef.name')"
 else
   if [ 0 == $verbose ]; then
     >&2 echo "(github-default-branch cache hit)"

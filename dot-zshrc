@@ -1,4 +1,4 @@
-PATH="$PATH:/Users/remmeltpit/.local/bin"
+PATH="$PATH:/Users/remmelt/.local/bin"
 
 PATH="/opt/homebrew/bin:$PATH"
 PATH="/opt/homebrew/sbin:$PATH"
@@ -7,19 +7,13 @@ PATH="$HOME/.jenv/bin:$PATH"
 PATH="/opt/homebrew/opt/node@18/bin:$PATH"
 PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 
-PATH="/Users/remmeltpit/.bin:$PATH"
-
-export GROWTH_DEPLOY_K8S_PATH="/Users/remmeltpit/dev/bitvavo/growth/k8s-configs"
+PATH="/Users/remmelt/.bin:$PATH"
 
 export PATH=$PATH
 
 export EDITOR=vim
 
 export BAT_THEME="gruvbox-dark"
-
-# export GITHUB_TOKEN="op://Private/GitHub Personal Access Token/token"
-export OPENAI_API_KEY="op://Private/CommitGPT OpenAI API key/password"
-# wherever GITHUB_TOKEN is referenced, prefix command with `op run -- `
 
 bindkey -v
 bindkey -M viins '\e.' insert-last-word
@@ -64,7 +58,7 @@ alias glf='gh f -l'
 # https://github.com/dlvhdr/gh-dash
 alias dash='gh dash'
 
-alias note='note() { d=$(date +"%Y%m%d"); concat=${$(printf '%s-' ${@})%?}; file="/Users/remmeltpit/dev/bitvavo/notes/${d}-${concat}.md"; touch "$file"; code "$file" }; note'
+alias note='note() { d=$(date +"%Y%m%d"); concat=${$(printf '%s-' ${@})%?}; file="/Users/remmelt/dev/notes/${d}-${concat}.md"; touch "$file"; code "$file" }; note'
 
 alias i='idea .'
 alias c='code .'
@@ -96,6 +90,5 @@ source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 autoload -U +X bashcompinit && bashcompinit
 autoload -U +X compinit && compinit
 
-source /Users/remmeltpit/dev/side/dotfiles/tsh-bitvavo.sh
-
 eval "$(starship init zsh)"
+
