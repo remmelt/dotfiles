@@ -25,6 +25,9 @@ export PATH=$PATH
 
 export EDITOR=vim
 
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+
 bindkey -v
 bindkey -M viins '\e.' insert-last-word
 
@@ -66,7 +69,7 @@ alias g='goland .'
 alias p='pycharm .'
 alias c='code .'
 alias z='fasd_cd'
-alias ls='exa -a -a -l --git'
+alias ls='eza -a -a -l --git'
 alias l='ls'
 alias grep='grep --color'
 alias hist='history -150'
@@ -77,7 +80,6 @@ alias o='open .'
 
 source ~/.zsh_options
 
-eval $(thefuck --alias fu)
 eval "$(fasd --init auto)"
 eval "$(jenv init -)"
 
