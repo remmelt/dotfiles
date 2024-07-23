@@ -1,0 +1,9 @@
+[filesystem "192.168.41.71|Amazon.com Inc.|19.0.2|/dev/disk3s5"]
+	timestampResolution = 5000 nanoseconds
+	minRacyThreshold = 0 nanoseconds
+[filesystem "Homebrew|17.0.9|/dev/disk3s5"]
+	timestampResolution = 9000 nanoseconds
+	minRacyThreshold = 0 nanoseconds
+[filesystem "Amazon.com Inc.|19.0.2|/dev/disk3s5"]
+	timestampResolution = 6000 nanoseconds
+	minRacyThreshold = 0 nanoseconds

@@ -15,7 +15,7 @@ export PATH=$PATH
 
 export EDITOR=vim
 
-export BAT_THEME="Monokai Extended"
+export BAT_THEME="gruvbox-dark"
 
 # export GITHUB_TOKEN="op://Private/GitHub Personal Access Token/token"
 export OPENAI_API_KEY="op://Private/CommitGPT OpenAI API key/password"

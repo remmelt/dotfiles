@@ -1,0 +1,7 @@
+.git
+.gitignore
+Brewfile
+Brewfile.lock.json
+README.md
+Makefile
+
